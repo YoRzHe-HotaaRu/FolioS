@@ -1,7 +1,5 @@
 # FolioS - Your Digital Notebook
 
-![FolioS Logo](static/logo4-transparent.png)
-
 A modern, responsive web-based note-taking application built with FastAPI and Firebase. FolioS provides a clean, intuitive interface for creating, managing, and organizing your digital notes with secure user authentication.
 
 ## Features
