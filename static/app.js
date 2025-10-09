@@ -1,4 +1,14 @@
 // static/app.js
+
+// Immediately hide any modals that might be visible
+document.addEventListener('DOMContentLoaded', function() {
+  // Hide any visible modals immediately
+  const modalOverlays = document.querySelectorAll('[x-cloak]');
+  modalOverlays.forEach(modal => {
+    modal.style.display = 'none';
+  });
+});
+
 const firebaseConfig = {
   apiKey: "AIzaSyA9M8AVMrEpU_DCjl-fN6zyfsf4DMuUQBc",
   authDomain: "fastapi-notes.firebaseapp.com",
@@ -22,6 +32,16 @@ function notesApp() {
     showNotification: false,
     showNoteSavedModal: false,
 
+    // Add immediate initialization to prevent modal flash
+    initialize() {
+      // Ensure modals are hidden immediately when script loads
+      if (document.querySelector('[x-data*="notesApp"]')) {
+        this.showDeleteModal = false;
+        this.showNoteSavedModal = false;
+        this.showNotification = false;
+      }
+    },
+
     showToast(message, type = "success") {
       this.notification = { message, type };
       this.showNotification = true;
@@ -29,6 +49,17 @@ function notesApp() {
         this.showNotification = false;
         this.notification = null;
       }, 2500); // auto-hide after 2.5 seconds
+    },
+
+    // Add this initialization method to prevent modal flashing
+    init() {
+      // Ensure modal states are properly reset on page load
+      this.showDeleteModal = false;
+      this.noteToDelete = null;
+      this.showNotification = false;
+      this.notification = null;
+      this.showNoteSavedModal = false;
+      this.initFirebase();
     },
 
 
